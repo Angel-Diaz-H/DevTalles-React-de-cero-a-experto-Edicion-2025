@@ -2,4 +2,9 @@
 let firstName = 'Fernando';
 let lastName = 'Herrera';
 
-console.log(firstName, lastName);
+let diceNumber = 5;
+// diceNumer = '3'; // No se cambiar el tipo de dato.
+
+const containsLetterH = lastName.includes('H');
+
+console.log({containsLetterH});

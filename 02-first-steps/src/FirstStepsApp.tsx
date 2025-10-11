@@ -8,7 +8,8 @@ export function FirstStepsApp() {
         <button>Click me</button> */}
 
             <h1>Carrito de compras</h1>
-            <ItemCounter />
+            <ItemCounter name='Nintendo Switch' quantity={3} />
+            <ItemCounter name='Xbox' quantity={2} />
         </>
     )
 };

@@ -17,7 +17,7 @@ export const ItemCounter = ({ name, quantity = 1 }: Props) => {
         setCount(count + 1);
     }
     const handleSubtract = () => {
-        if (count === 0) return;
+        if (count === 1) return;
         setCount(count - 1);
     }
 
@@ -26,7 +26,7 @@ export const ItemCounter = ({ name, quantity = 1 }: Props) => {
             <span
                 className="item-text"
                 style={{
-                    color: count === 0 ? 'red' : 'black',
+                    color: count === 1 ? 'red' : 'black',
                 }}
             >{name}</span>
             <button onClick={handleAdd}>+1</button>

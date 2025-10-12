@@ -21,8 +21,8 @@ const address = {
 
 export function MyAwesomeApp() {
     return (
-        <>
-            <h1>{firstName}</h1>
+        <div data-testid='div-app'>
+            <h1 data-testid='first-name-title'>{firstName}</h1>
             <h3>{lastName}</h3>
 
             <p>{favoriteGame.join(', ')}</p>
@@ -35,6 +35,6 @@ export function MyAwesomeApp() {
             <p style={myStyle}>
                 {JSON.stringify(address)}
             </p>
-        </>
+        </div>
     )
 };

@@ -1,0 +1,65 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MyAwesomeApp > Should match snapshot 1`] = `
+<div>
+  <div
+    data-testid="div-app"
+  >
+    <h1
+      data-testid="first-name-title"
+    >
+      Angel
+    </h1>
+    <h3>
+      Díaz
+    </h3>
+    <p>
+      Elden Ring, Smash, Metal Gear
+    </p>
+    <p>
+      2+2 = 
+      4
+    </p>
+    <h1 />
+    <h1>
+      No
+    </h1>
+    <p
+      style="background-color: rgb(193, 228, 193); border-radius: 30px; padding: 10px; margin: 15px; text-align: center;"
+    >
+      {"zipCode":"ABC-123","country":"Canadá"}
+    </p>
+  </div>
+</div>
+`;
+
+exports[`MyAwesomeApp > Should match snapshot 2`] = `
+<div
+  data-testid="div-app"
+>
+  <h1
+    data-testid="first-name-title"
+  >
+    Angel
+  </h1>
+  <h3>
+    Díaz
+  </h3>
+  <p>
+    Elden Ring, Smash, Metal Gear
+  </p>
+  <p>
+    2+2 = 
+    4
+  </p>
+  <h1 />
+  <h1>
+    No
+  </h1>
+  <p
+    style="background-color: rgb(193, 228, 193); border-radius: 30px; padding: 10px; margin: 15px; text-align: center;"
+  >
+    {"zipCode":"ABC-123","country":"Canadá"}
+  </p>
+</div>
+`;

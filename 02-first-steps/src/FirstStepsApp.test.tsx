@@ -1,6 +1,10 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { FirstStepsApp } from "./FirstStepsApp";
+
+vi.mock('./shopping-cart/itemCounter', () => ({
+    ItemCounter: () => <div data-testid="item-counter" />
+}));
 
 describe('FirstSteppApp', () => {
     test('Should match snapshot', () => {
@@ -9,4 +13,12 @@ describe('FirstSteppApp', () => {
 
         screen.debug();
     });
+
+    test('Should render the correct number of ItemCounter components', () => {
+        render(<FirstStepsApp />);
+        const itemCounterElements = screen.getAllByTestId('item-counter');
+
+        expect(itemCounterElements.length).toBe(3);
+        screen.debug();
+    })
 });

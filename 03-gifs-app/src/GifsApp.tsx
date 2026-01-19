@@ -25,7 +25,7 @@ export const GifsApp = () => {
 
       {/* Búsquedas previas */}
       <PreviousSearches
-        searches={["Gokú", "Dragon Ball Súper"]}
+        searches={previousTerms}
         onLabelClicked={handleTermClicked}
       />
 

@@ -34,7 +34,7 @@ describe("useCounter", () => {
     expect(result.current.counter).toBe(4);
   });
 
-  test("should reset counter when handleReset is called", () => {
+  test("should reset to initial value when handleReset is called", () => {
     const { result } = renderHook(() => useCounter());
 
     act(() => {

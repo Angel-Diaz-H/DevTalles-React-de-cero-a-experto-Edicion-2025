@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach } from "vitest";
+import { describe, test, expect, beforeEach, vi } from "vitest";
 import AxiosMockAdapter from "axios-mock-adapter";
 
 import { getGifsByQuery } from "./get-gifs-by-query.action";
@@ -56,6 +56,9 @@ describe("getGifsByQuery", () => {
   });
 
   test("should handle error when the API returns an error", async () => {
+    const consoleErrorSpy = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
     mock.onGet("/search").reply(400, {
       data: {
         message: "Bad request",
@@ -63,7 +66,9 @@ describe("getGifsByQuery", () => {
     });
 
     const gifs = await getGifsByQuery("Goku");
-    console.log(gifs);
+    // console.log(gifs);
     expect(gifs.length).toBe(0);
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(expect.anything());
   });
 });

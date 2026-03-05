@@ -6,7 +6,7 @@ import type { Gif } from "../interfaces/gif.interface";
 
 export const useGifs = () => {
   const [gifs, setGifs] = useState<Gif[]>([]);
-  const [previousTerms, setPreviousTerms] = useState<string[]>([""]);
+  const [previousTerms, setPreviousTerms] = useState<string[]>([]);
   const gifsCache = useRef<Record<string, Gif[]>>({}).current;
 
   const handleTermClicked = async (term: string) => {
@@ -34,10 +34,10 @@ export const useGifs = () => {
   return {
     // Props / Values.
     gifs,
+    previousTerms,
 
     // Methods / Actions.
     handleSearch,
     handleTermClicked,
-    previousTerms,
   };
 };

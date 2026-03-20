@@ -17,9 +17,18 @@ export type TaskAction =
   | { type: 'TOGGLE_TODO'; payload: number }
   | { type: 'DELETE_TODO'; payload: number };
 
+export const getTasksInitialState = (): TaskState => {
+  return {
+    todos: [],
+    completed: 0,
+    pending: 0,
+    length: 0,
+  };
+};
+
 // Siempre retorna algo de tipo TaskState.
 export const taskReducer = (
-  state: TaskState,
+  state: TaskState, // No se debe iniciarlizar el estado aquí, sino en el useReducer.
   action: TaskAction,
 ): TaskState => {
   switch (action.type) {

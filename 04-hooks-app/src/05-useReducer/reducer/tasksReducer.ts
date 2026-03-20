@@ -1,3 +1,5 @@
+import * as z from 'zod';
+
 // Es una función que debe regresar un estado nuevo o valor.
 interface Todo {
   id: number;
@@ -11,6 +13,19 @@ interface TaskState {
   completed: number;
   pending: number;
 }
+
+const TodoSchema = z.object({
+  id: z.number(),
+  text: z.string(),
+  completed: z.boolean(),
+});
+
+const TaskStateSchema = z.object({
+  todos: z.array(TodoSchema),
+  length: z.number(),
+  completed: z.number(),
+  pending: z.number(),
+});
 
 export type TaskAction =
   | { type: 'ADD_TODO'; payload: string }
@@ -29,8 +44,20 @@ export const getTasksInitialState = (): TaskState => {
     };
   }
 
+  //* Validación con Zod:
+  const result = TaskStateSchema.safeParse(JSON.parse(localStorageState));
+  if (result.error) {
+    console.log(result.error);
+    return {
+      todos: [],
+      completed: 0,
+      pending: 0,
+      length: 0,
+    };
+  }
+
   //! Se debe validar que el estado del localStorage tenga la forma correcta, o manejar posibles errores al parsear el JSON.
-  return JSON.parse(localStorageState);
+  return result.data;
 };
 
 // Siempre retorna algo de tipo TaskState.

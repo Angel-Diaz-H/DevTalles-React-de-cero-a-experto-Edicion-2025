@@ -18,12 +18,19 @@ export type TaskAction =
   | { type: 'DELETE_TODO'; payload: number };
 
 export const getTasksInitialState = (): TaskState => {
-  return {
-    todos: [],
-    completed: 0,
-    pending: 0,
-    length: 0,
-  };
+  const localStorageState = localStorage.getItem('tasks-state');
+
+  if (!localStorageState) {
+    return {
+      todos: [],
+      completed: 0,
+      pending: 0,
+      length: 0,
+    };
+  }
+
+  //! Se debe validar que el estado del localStorage tenga la forma correcta, o manejar posibles errores al parsear el JSON.
+  return JSON.parse(localStorageState);
 };
 
 // Siempre retorna algo de tipo TaskState.

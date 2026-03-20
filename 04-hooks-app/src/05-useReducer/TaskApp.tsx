@@ -1,57 +1,27 @@
+import { useReducer, useState } from 'react';
+import { Plus, Trash2, Check } from 'lucide-react';
+import { getTasksInitialState, taskReducer } from './reducer/tasksReducer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Checkbox } from '@/components/ui/checkbox';
-import { getTasksInitialState, taskReducer } from './reducer/tasksReducer';
 import { Input } from '@/components/ui/input';
-import { Plus, Trash2, Check } from 'lucide-react';
-import { useReducer, useState } from 'react';
-
-// interface Todo {
-//   id: number;
-//   text: string;
-//   completed: boolean;
-// }
+import { Checkbox } from '@/components/ui/checkbox';
 
 export const TasksApp = () => {
   const [inputValue, setInputValue] = useState('');
-  // const [todos, setTodos] = useState<Todo[]>([]);
   const [state, dispatch] = useReducer(taskReducer, getTasksInitialState());
 
   const addTodo = () => {
     if (inputValue.length === 0) return;
-
     dispatch({ type: 'ADD_TODO', payload: inputValue });
-    // const newTodo: Todo = {
-    //   id: Date.now(),
-    //   text: inputValue.trim(),
-    //   completed: false,
-    // };
-
-    //! Esta suele ser una mala práctica para React,
-    // porque no detecta el cambio de estado:
-    //. todos.push(newTodo);
-
-    // setTodos((prev) => [...prev, newTodo]);
-    // setTodos([...todos, newTodo]);
-
     setInputValue('');
   };
 
   const toggleTodo = (id: number) => {
-    // const updatedTodos = todos.map((todo) => {
-    //   if (todo.id === id) {
-    //     return { ...todo, completed: !todo.completed };
-    //   }
-    //   return todo;
-    // });
-    // setTodos(updatedTodos);
     dispatch({ type: 'TOGGLE_TODO', payload: id });
   };
 
   const deleteTodo = (id: number) => {
-    // const updatedTodos = todos.filter((todo) => todo.id !== id);
     dispatch({ type: 'DELETE_TODO', payload: id });
-    // setTodos(updatedTodos);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -61,9 +31,6 @@ export const TasksApp = () => {
   };
 
   const { todos, completed: completedCount, length: totalCount } = state;
-
-  // const completedCount = todos.filter((todo) => todo.completed).length;
-  // const totalCount = todos.length;
 
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-100 p-4">

@@ -1,0 +1,15 @@
+interface Props {
+  subtitle: string;
+}
+
+export const MySubtitle = ({ subtitle }: Props) => {
+  console.log('MySubTitle re-render');
+  return (
+    <>
+      <h6 className="text-2xl font-bold">{subtitle}</h6>
+      <button className="bg-indigo-500 text-white px-2 py-1 rounded-full cursor-pointer">
+        Llamar a función
+      </button>
+    </>
+  );
+};

@@ -59,7 +59,7 @@ export const getInitialState = (): ScrambleWordsState => {
     scrambledWord: scrambleWord(shuffledWords[0]),
     skipCounter: 0,
     words: shuffledWords,
-    totalWords: scrambleWord.length,
+    totalWords: shuffledWords.length,
   };
 };
 

@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
@@ -8,10 +8,6 @@ import {
   getInitialState,
   scrambleWordsReducer,
 } from './reducer/scrambleWordReducer';
-
-confetti({
-  spread: 100,
-});
 
 export const ScrambleWords = () => {
   const [state, dispatch] = useReducer(scrambleWordsReducer, getInitialState());
@@ -29,6 +25,17 @@ export const ScrambleWords = () => {
     words,
     totalWords,
   } = state;
+
+  useEffect(() => {
+    // if (points > 0 && points % 3 === 0) {
+    if (points === 0) return;
+
+    confetti({
+      particleCount: 100,
+      spread: 100,
+      origin: { y: 0.6 },
+    });
+  }, [points]);
 
   const handleGuessSubmit = (e: React.FormEvent) => {
     e.preventDefault();

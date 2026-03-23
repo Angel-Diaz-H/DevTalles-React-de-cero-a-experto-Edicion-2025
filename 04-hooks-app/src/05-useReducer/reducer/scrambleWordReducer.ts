@@ -64,14 +64,41 @@ export const getInitialState = (): ScrambleWordsState => {
 };
 
 export type ScrambleWordsAction =
-  | { type: 'NO_SE_QUE_TIPO_O_ACCION_SERA' }
-  | { type: 'NO_SE_QUE_TIPO_O_ACCION_SERA2' };
+  | { type: 'SET_GUESS'; payload: string }
+  | { type: 'CHECK_ANSWER' }
+  | { type: 'CHECK_ANSWER2' };
 
 export const scrambleWordsReducer = (
   state: ScrambleWordsState,
   action: ScrambleWordsAction,
-) => {
+): ScrambleWordsState => {
   switch (action.type) {
+    case 'SET_GUESS':
+      return {
+        ...state,
+        guess: action.payload.trim().toUpperCase(),
+      };
+
+    case 'CHECK_ANSWER': {
+      if (state.currentWord === state.guess) {
+        const newWords = state.words.slice(1);
+        return {
+          ...state,
+          words: newWords,
+          points: state.points + 1,
+          guess: '',
+          currentWord: newWords[0],
+          scrambledWord: scrambleWord(newWords[0]), // Hay que evitar mezclar.
+        };
+      }
+      return {
+        ...state,
+        guess: '',
+        errorCounter: state.errorCounter + 1,
+        isGameOver: state.errorCounter + 1 >= state.maxAllowErrors,
+      };
+    }
+
     default:
       return state;
   }

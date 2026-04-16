@@ -9,7 +9,9 @@ import './index.css';
 // import { TrafficLightWithEffect } from "./02-useEffect/TrafficLightWithEffect";
 // import { TasksApp } from './05-useReducer/TaskApp';
 // import { ScrambleWords } from './05-useReducer/ScrambleWords';
-import { MemoHook } from './06-memos/MemoHook';
+// import { MemoHook } from './06-memos/MemoHook';
+// import { MemoCounter } from './06-memos/MemoCounter';
+import { InstagromApp } from './07-useOptimize/InstagromApp';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -21,6 +23,8 @@ createRoot(document.getElementById('root')!).render(
     {/* <FocusScreen /> */}
     {/* <TasksApp /> */}
     {/* <ScrambleWords /> */}
-    <MemoHook />
+    {/* <MemoHook /> */}
+    {/* <MemoCounter /> */}
+    <InstagromApp />
   </StrictMode>,
 );

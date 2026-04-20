@@ -14,13 +14,13 @@ export const HomePage = () => {
     "all" | "favorites" | "heroes" | "villains"
   >("all");
 
-  const { data } = useQuery({
+  const { data: HeroesResponse } = useQuery({
     queryKey: ["heroes"],
     queryFn: () => getHeroesByPageAction(),
     staleTime: 1000 * 60 * 5 /* 5 minutos */,
   });
 
-  console.log({ data });
+  console.log({ HeroesResponse });
 
   // useEffect(() => {
   //   getHeroesByPage().then();
@@ -46,6 +46,7 @@ export const HomePage = () => {
             <TabsTrigger value="all" onClick={() => setActiveTab("all")}>
               All Characters (16)
             </TabsTrigger>
+
             <TabsTrigger
               value="favorites"
               className="flex items-center gap-2"
@@ -65,16 +66,16 @@ export const HomePage = () => {
           </TabsList>
 
           <TabsContent value="all">
-            <HeroGrid />
+            <HeroGrid heroes={HeroesResponse?.heroes || []} />
           </TabsContent>
           <TabsContent value="favorites">
-            <HeroGrid />
+            <HeroGrid heroes={[]} />
           </TabsContent>
           <TabsContent value="heroes">
-            <HeroGrid />
+            <HeroGrid heroes={[]} />
           </TabsContent>
           <TabsContent value="villains">
-            <HeroGrid />
+            <HeroGrid heroes={[]} />
           </TabsContent>
         </Tabs>
 

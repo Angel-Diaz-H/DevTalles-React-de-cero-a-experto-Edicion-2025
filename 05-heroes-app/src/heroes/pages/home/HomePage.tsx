@@ -23,6 +23,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CustomJumbotron } from "../../../components/custom/CustomJumbotron";
+import { HeroStats } from "@/heroes/components/HeroStats";
 
 export const HomePage = () => {
   return (
@@ -35,62 +36,7 @@ export const HomePage = () => {
         />
 
         {/* Stats Dashboard */}
-        <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Total Characters
-              </CardTitle>
-              <Users className="text-muted-foreground h-4 w-4" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">16</div>
-              <div className="mt-2 flex gap-1">
-                <Badge variant="secondary" className="text-xs">
-                  12 Heroes
-                </Badge>
-                <Badge variant="destructive" className="text-xs">
-                  2 Villains
-                </Badge>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Favorites</CardTitle>
-              <Heart className="text-muted-foreground h-4 w-4" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-red-600">3</div>
-              <p className="text-muted-foreground text-xs">18.8% of total</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Strongest</CardTitle>
-              <Zap className="text-muted-foreground h-4 w-4" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-lg font-bold">Superman</div>
-              <p className="text-muted-foreground text-xs">Strength: 10/10</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Smartest</CardTitle>
-              <Trophy className="text-muted-foreground h-4 w-4" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-lg font-bold">Batman</div>
-              <p className="text-muted-foreground text-xs">
-                Intelligence: 10/10
-              </p>
-            </CardContent>
-          </Card>
-        </div>
+        <HeroStats />
 
         {/* Controls */}
         <div className="mb-8 flex flex-col gap-4 lg:flex-row">

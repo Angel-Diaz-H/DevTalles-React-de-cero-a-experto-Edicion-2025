@@ -1,12 +1,13 @@
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+
+import { CustomBreacrumbs } from "@/components/custom/CustomBreacrumbs";
 import { CustomJumbotron } from "../../../components/custom/CustomJumbotron";
 import { CustomPagination } from "@/components/custom/CustomPagination";
+import { getHeroesByPageAction } from "@/heroes/actions/get-heroes-by-page.action";
 import { HeroGrid } from "../../components/HeroGrid";
 import { HeroStats } from "@/heroes/components/HeroStats";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState } from "react";
-import { CustomBreacrumbs } from "@/components/custom/CustomBreacrumbs";
-import { getHeroesByPageAction } from "@/heroes/actions/get-heroes-by-page.action";
-import { useQuery } from "@tanstack/react-query";
 
 export const HomePage = () => {
   const [activeTab, setActiveTab] = useState<
@@ -18,6 +19,8 @@ export const HomePage = () => {
     queryFn: () => getHeroesByPageAction(),
     staleTime: 1000 * 60 * 5 /* 5 minutos */,
   });
+
+  console.log({ data });
 
   // useEffect(() => {
   //   getHeroesByPage().then();

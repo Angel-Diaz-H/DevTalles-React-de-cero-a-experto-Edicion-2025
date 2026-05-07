@@ -14,6 +14,8 @@ export const HomePage = () => {
   // Para establecer paginación desde la URL.
   // Ejmplo: ?page=2&offset=10
   const [searchParams, setSearchParams] = useSearchParams();
+  const page = searchParams.get("page") ?? "1";
+  const limit = searchParams.get("limit") ?? "6";
 
   const activeTab = searchParams.get("tab") ?? "all";
 
@@ -31,7 +33,7 @@ export const HomePage = () => {
 
   const { data: HeroesResponse } = useQuery({
     queryKey: ["heroes"],
-    queryFn: () => getHeroesByPageAction(),
+    queryFn: () => getHeroesByPageAction(+page, +limit),
     staleTime: 1000 * 60 * 5 /* 5 minutos */,
   });
 

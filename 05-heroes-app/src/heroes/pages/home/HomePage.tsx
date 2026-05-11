@@ -1,15 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
 import { useMemo } from "react";
 
 import { CustomBreacrumbs } from "@/components/custom/CustomBreacrumbs";
 import { CustomJumbotron } from "../../../components/custom/CustomJumbotron";
 import { CustomPagination } from "@/components/custom/CustomPagination";
-import { getHeroesByPageAction } from "@/heroes/actions/get-heroes-by-page.action";
 import { HeroGrid } from "../../components/HeroGrid";
 import { HeroStats } from "@/heroes/components/HeroStats";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getSummaryAction } from "@/heroes/actions/get-summary.action";
+import { useHeroSummary } from "@/heroes/hooks/useHeroSummary";
+import { usePaginatedHero } from "@/heroes/hooks/usePaginatedHero";
 
 export const HomePage = () => {
   // Para establecer paginación desde la URL.
@@ -25,17 +24,8 @@ export const HomePage = () => {
     return validTabs.includes(activeTab) ? activeTab : "all";
   }, [activeTab]);
 
-  const { data: HeroesResponse } = useQuery({
-    queryKey: ["heroes", { page, limit }],
-    queryFn: () => getHeroesByPageAction(+page, +limit),
-    staleTime: 1000 * 60 * 5 /* 5 minutos */,
-  });
-
-  const { data: summary } = useQuery({
-    queryKey: ["summary-information"],
-    queryFn: getSummaryAction,
-    staleTime: 1000 * 60 * 5, // 5 minutes
-  });
+  const { data: HeroesResponse } = usePaginatedHero(+page, +limit);
+  const { data: summary } = useHeroSummary();
 
   return (
     <>

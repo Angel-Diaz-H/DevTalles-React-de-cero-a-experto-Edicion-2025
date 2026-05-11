@@ -9,6 +9,7 @@ import { getHeroesByPageAction } from "@/heroes/actions/get-heroes-by-page.actio
 import { HeroGrid } from "../../components/HeroGrid";
 import { HeroStats } from "@/heroes/components/HeroStats";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getSummaryAction } from "@/heroes/actions/get-summary.action";
 
 export const HomePage = () => {
   // Para establecer paginación desde la URL.
@@ -24,24 +25,17 @@ export const HomePage = () => {
     return validTabs.includes(activeTab) ? activeTab : "all";
   }, [activeTab]);
 
-  // console.log(searchParams.get("1"));
-  // console.log(searchParams.get("offset"));
-
-  // const [activeTab, setActiveTab] = useState<
-  //   "all" | "favorites" | "heroes" | "villains"
-  // >("all");
-
   const { data: HeroesResponse } = useQuery({
     queryKey: ["heroes", { page, limit }],
     queryFn: () => getHeroesByPageAction(+page, +limit),
     staleTime: 1000 * 60 * 5 /* 5 minutos */,
   });
 
-  // console.log({ HeroesResponse });
-
-  // useEffect(() => {
-  //   getHeroesByPage().then();
-  // }, []);
+  const { data: summary } = useQuery({
+    queryKey: ["summary-information"],
+    queryFn: getSummaryAction,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
 
   return (
     <>
@@ -69,7 +63,7 @@ export const HomePage = () => {
                 })
               }
             >
-              All Characters (16)
+              All Characters ({summary?.totalHeroes ?? 0})
             </TabsTrigger>
 
             <TabsTrigger
@@ -82,7 +76,7 @@ export const HomePage = () => {
                 })
               }
             >
-              Favorites (3)
+              Favorites (2111)
             </TabsTrigger>
             <TabsTrigger
               value="heroes"
@@ -104,7 +98,7 @@ export const HomePage = () => {
                 })
               }
             >
-              Villains (2)
+              Villains ({summary?.villainCount ?? 0})
             </TabsTrigger>
           </TabsList>
 

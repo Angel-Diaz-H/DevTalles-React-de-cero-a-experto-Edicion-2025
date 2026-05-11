@@ -1,21 +1,29 @@
 import { Badge } from "@/components/ui/badge";
 import { Heart, Trophy, Users, Zap } from "lucide-react";
 import { HeroStatCard } from "./HeroStatCard";
+import { useQuery } from "@tanstack/react-query";
+import { getSummaryAction } from "../actions/get-summary.action";
 
 export const HeroStats = () => {
+  const { data: summary } = useQuery({
+    queryKey: ["summary-information"],
+    queryFn: getSummaryAction,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+
   return (
     <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
       <HeroStatCard
         title="Total de personajes"
         icon={<Users className="text-muted-foreground h-4 w-4" />}
       >
-        <div className="text-2xl font-bold">16</div>
+        <div className="text-2xl font-bold">{summary?.totalHeroes}</div>
         <div className="mt-2 flex gap-1">
           <Badge variant="secondary" className="text-xs">
-            12 Heroes
+            {summary?.heroCount} Heroes
           </Badge>
           <Badge variant="destructive" className="text-xs">
-            2 Villains
+            {summary?.villainCount} Villains
           </Badge>
         </div>
       </HeroStatCard>
@@ -24,6 +32,7 @@ export const HeroStats = () => {
         title="Favoritos"
         icon={<Heart className="text-muted-foreground h-4 w-4" />}
       >
+        {/* TODO: Implementar favoritos */}
         <div className="text-2xl font-bold text-red-600">3</div>
         <p className="text-muted-foreground text-xs">18.8% of total</p>
       </HeroStatCard>
@@ -32,16 +41,20 @@ export const HeroStats = () => {
         title="Fuerte"
         icon={<Zap className="text-muted-foreground h-4 w-4" />}
       >
-        <div className="text-lg font-bold">Superman</div>
-        <p className="text-muted-foreground text-xs">Strength: 10/10</p>
+        <div className="text-lg font-bold">{summary?.strongestHero.alias}</div>
+        <p className="text-muted-foreground text-xs">
+          Strength: {summary?.strongestHero.strength}
+        </p>
       </HeroStatCard>
 
       <HeroStatCard
         title="Inteligente"
         icon={<Trophy className="text-muted-foreground h-4 w-4" />}
       >
-        <div className="text-lg font-bold">Batman</div>
-        <p className="text-muted-foreground text-xs">Intelligence: 10/10</p>
+        <div className="text-lg font-bold">{summary?.smartestHero.alias}</div>
+        <p className="text-muted-foreground text-xs">
+          Intelligence: {summary?.smartestHero.intelligence}
+        </p>
       </HeroStatCard>
     </div>
   );

@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import type { Hero } from "../types/hero.interface";
 import { useNavigate } from "react-router";
+import { use } from "react";
+import { FavoriteHeroContext } from "@/context/FavoriteHeroContext";
 
 interface Props {
   hero: Hero;
@@ -12,6 +14,8 @@ interface Props {
 
 export const HeroGridCard = ({ hero }: Props) => {
   const navigate = useNavigate();
+
+  const { isFavorite, toggleFavorite } = use(FavoriteHeroContext);
 
   const handleClick = () => {
     navigate(`/heroes/${hero.slug}`);
@@ -58,8 +62,11 @@ export const HeroGridCard = ({ hero }: Props) => {
           size="sm"
           variant="ghost"
           className="absolute right-3 bottom-3 bg-white/90 hover:bg-white"
+          onClick={() => toggleFavorite(hero)}
         >
-          <Heart className="h-4 w-4 fill-red-500 text-red-500" />
+          <Heart
+            className={`h-4 w-4 ${isFavorite(hero) ? "fill-red-500 text-red-500" : "text-gray-400"}`}
+          />
         </Button>
 
         {/* View details button */}
@@ -72,7 +79,7 @@ export const HeroGridCard = ({ hero }: Props) => {
         </Button>
       </div>
 
-      <CardHeader className="relative top-1 z-10 bg-gray-100/50 py-3 backdrop-blur-sm transition-all duration-300 group-hover:top-[-10px]">
+      <CardHeader className="relative top-1 z-10 bg-gray-100/50 py-3 backdrop-blur-sm transition-all duration-300 group-hover:-top-2.5">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
             <h3 className="text-lg leading-tight font-bold">{hero.alias}</h3>

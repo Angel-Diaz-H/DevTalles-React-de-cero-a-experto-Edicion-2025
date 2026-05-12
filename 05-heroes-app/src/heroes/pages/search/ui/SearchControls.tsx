@@ -15,13 +15,19 @@ export const SearchControls = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const activeAccordion = searchParams.get("active-accordion") ?? "";
+
+  const setQueryParams = (name: string, value: string) => {
+    setSearchParams((prev) => {
+      prev.set(name, value);
+      return prev;
+    });
+  };
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      const value = inputRef.current?.value || "";
-      setSearchParams((prev) => {
-        prev.set("name", value);
-        return prev;
-      });
+      const value = inputRef.current?.value ?? "";
+      setQueryParams("name", value);
     }
   };
 
@@ -41,17 +47,30 @@ export const SearchControls = () => {
 
         {/* Action buttons */}
         <div className="flex gap-2">
-          <Button variant="outline" className="h-12 bg-transparent">
+          <Button
+            variant={
+              activeAccordion === "advanced-filters" ? "default" : "outline"
+            }
+            className="h-12"
+            onClick={() => {
+              if (activeAccordion === "advanced-filters") {
+                // setQueryParams("active-accordion", "");
+                searchParams.delete("active-accordion");
+                return;
+              }
+              setQueryParams("active-accordion", "advanced-filters");
+            }}
+          >
             <Filter className="mr-2 h-4 w-4" />
             Filters
           </Button>
 
-          <Button variant="outline" className="h-12 bg-transparent">
+          <Button variant="outline" className="h-12">
             <SortAsc className="mr-2 h-4 w-4" />
             Sort by Name
           </Button>
 
-          <Button variant="outline" className="h-12 bg-transparent">
+          <Button variant="outline" className="h-12">
             <Grid className="h-4 w-4" />
           </Button>
 
@@ -63,8 +82,8 @@ export const SearchControls = () => {
       </div>
 
       {/* Advanced Filters */}
-      <Accordion type="single" collapsible value="item-1">
-        <AccordionItem value="item-1">
+      <Accordion type="single" collapsible value={activeAccordion}>
+        <AccordionItem value="advanced-filters">
           {/* <AccordionTrigger>Filtros avanzados</AccordionTrigger> */}
           <AccordionContent>
             <div className="mb-8 rounded-lg border bg-white p-6 shadow-sm">

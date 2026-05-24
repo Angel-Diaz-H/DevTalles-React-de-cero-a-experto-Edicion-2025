@@ -1,9 +1,9 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { JSX, PropsWithChildren } from "react";
+import type { PropsWithChildren } from 'react';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 interface Props extends PropsWithChildren {
   title: string;
-  icon: JSX.Element; /* React.ReactNode */
+  icon: React.ReactNode;
 }
 
 export const HeroStatCard = ({ title, icon, children }: Props) => {

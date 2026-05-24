@@ -1,4 +1,4 @@
-import type { Hero } from "./hero.interface";
+import type { Hero } from './hero.interface';
 
 export interface SummaryInformationResponse {
   totalHeroes: number;

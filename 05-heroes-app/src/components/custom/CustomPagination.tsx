@@ -8,13 +8,15 @@ interface Props {
 
 export const CustomPagination = ({ totalPages }: Props) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const queryPage = searchParams.get("page") ?? "1";
 
+  const queryPage = searchParams.get("page") ?? "1";
   const page = isNaN(+queryPage) ? 1 : +queryPage;
 
   const handlePageChange = (page: number) => {
     if (page < 1 || page > totalPages) return;
+
     searchParams.set("page", page.toString());
+
     setSearchParams(searchParams);
   };
 
@@ -41,19 +43,11 @@ export const CustomPagination = ({ totalPages }: Props) => {
         </Button>
       ))}
 
-      {/* <Button variant="outline" size="sm">
-        2
-      </Button> */}
-
-      {/* <Button variant="ghost" size="sm" disabled>
-        <MoreHorizontal className="h-4 w-4" />
-      </Button> */}
-
       <Button
-        onClick={() => handlePageChange(page + 1)}
         variant="outline"
         size="sm"
         disabled={page === totalPages}
+        onClick={() => handlePageChange(page + 1)}
       >
         Siguientes
         <ChevronRight className="h-4 w-4" />

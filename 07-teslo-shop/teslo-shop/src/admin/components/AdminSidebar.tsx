@@ -37,7 +37,10 @@ export const AdminSidebar: React.FC<SidebarProps> = ({
   ];
 
   const isActiveRoute = (to: string) => {
-    return pathname === to; // true, false
+    if (pathname.includes("admin/products") && to === "/admin/products") {
+      return true;
+    }
+    return pathname === to;
   };
 
   return (

@@ -12,6 +12,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { CustomLogo } from "@/components/Custom/CustomLogo";
+import { Link, useLocation } from "react-router";
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -22,16 +23,22 @@ export const AdminSidebar: React.FC<SidebarProps> = ({
   isCollapsed,
   onToggle,
 }) => {
+  const { pathname } = useLocation();
+
   const menuItems = [
-    { icon: Home, label: "Dashboard", active: true },
-    { icon: BarChart3, label: "Analytics" },
-    { icon: Users, label: "Users" },
-    { icon: ShoppingCart, label: "Orders" },
-    { icon: FileText, label: "Reports" },
-    { icon: Bell, label: "Notifications" },
-    { icon: Settings, label: "Settings" },
-    { icon: HelpCircle, label: "Help" },
+    { icon: Home, label: "Dashboard", to: "/admin" },
+    { icon: BarChart3, label: "Productos", to: "/admin/products" },
+    { icon: Users, label: "Usuarios", to: "/admin/users" },
+    { icon: ShoppingCart, label: "Ordenes", to: "/admin/orders" },
+    { icon: FileText, label: "Reportes", to: "/admin/reports" },
+    { icon: Bell, label: "Notificaciones", to: "/admin/notifications" },
+    { icon: Settings, label: "Configuración", to: "/admin/settings" },
+    { icon: HelpCircle, label: "Ayuda", to: "/admin/help" },
   ];
+
+  const isActiveRoute = (to: string) => {
+    return pathname === to; // true, false
+  };
 
   return (
     <div
@@ -57,10 +64,10 @@ export const AdminSidebar: React.FC<SidebarProps> = ({
             const Icon = item.icon;
             return (
               <li key={index}>
-                <a
-                  href="#"
+                <Link
+                  to={item.to || "/admin"}
                   className={`flex items-center space-x-3 px-3 py-2 rounded-lg transition-all duration-200 group ${
-                    item.active
+                    isActiveRoute(item.to)
                       ? "bg-blue-50 text-blue-600 border-r-2 border-blue-600"
                       : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   }`}
@@ -69,7 +76,7 @@ export const AdminSidebar: React.FC<SidebarProps> = ({
                   {!isCollapsed && (
                     <span className="font-medium">{item.label}</span>
                   )}
-                </a>
+                </Link>
               </li>
             );
           })}

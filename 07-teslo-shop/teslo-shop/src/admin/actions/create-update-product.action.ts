@@ -13,6 +13,7 @@ export const createUpdateProductAction = async (
   rest.stock = Number(rest.stock || 0);
   rest.price = Number(rest.price || 0);
 
+  console.log("pre-data recibida", rest);
   const { data } = await tesloApi<Product>({
     url: isCreating ? `/products` : `/products/${id}`,
     method: isCreating ? "POST" : "PATCH",

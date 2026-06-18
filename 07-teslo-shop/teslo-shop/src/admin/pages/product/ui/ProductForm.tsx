@@ -46,7 +46,7 @@ export const ProductForm = ({ title, subTitle, product, onSubmit }: Props) => {
     setValue("tags", Array.from(newTagSet));
   };
 
-  const removeTag = (tag: Size) => {
+  const removeTag = (tag: string) => {
     const newTagSet = new Set(getValues("tags"));
     newTagSet.delete(tag);
     setValue("tags", Array.from(newTagSet));
